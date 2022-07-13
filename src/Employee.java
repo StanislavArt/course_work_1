@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Employee {
     private static int nextId = 1;  // идентификаторы будут начинаться с единицы
     private String lastName;
@@ -53,5 +55,18 @@ public class Employee {
     @Override
     public String toString() {
         return "Сотрудник: " + lastName + " " + firstName + " " + secondName + " (id = " + id + "); отдел: " + department + "; зарплата: " + String.format("%.2f", salary);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return department == employee.department && Double.compare(employee.salary, salary) == 0 && Objects.equals(lastName, employee.lastName) && firstName.equals(employee.firstName) && Objects.equals(secondName, employee.secondName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastName, firstName, secondName, department, salary);
     }
 }
